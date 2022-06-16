@@ -1,0 +1,71 @@
+(function($){
+	$( document ).ready(function() {
+		$('.hotspot-h0').addClass('opened');
+
+		$('.img-wrapper').on('click', function(){
+			$('.hotspot').removeClass('opened');
+		});
+
+		$('.hotspot').on('click', function(e){
+			e.stopPropagation();
+			$(".announcements").html("");
+			$('.hotspot').not(this).removeClass('opened');
+			$(this).toggleClass('opened');
+			$(".announcements").html("<h3>"+$(this).data("title")+": <br/></h3> <p>"+$(this).data("content")+"</p>");
+		});
+
+		if(getCountry() == 'fr'){
+		setTimeout(setFrench,500);
+		}
+
+		function setFrench(){
+			//console.log($('.side-aligned-content li[data-value="All"]').html());
+			$('.side-aligned-content li[data-value="All"]').html('- Choisir -');
+			$('.side-aligned-content li[data-value="Anything"]').html('- Choisir -');
+			$('.side-aligned-content .selected').html('- Choisir -');
+
+		}
+
+
+
+
+		$('.side-aligned-content .bottle-select .selected').on('change', function(e){
+			if(getCountry()=='fr' && $('.side-aligned-content .bottle-select .selected').html() == '- Any -'){
+				$('.side-aligned-content .bottle-select .selected').html('- Choisir -');
+			}
+
+		});
+
+		$('.side-aligned-content.component .recipe-filter .button').on('click', function(e) {
+			var productText = $('.side-aligned-content.component .recipe-filter .recipe-selector select.bottle :selected').text();
+			var occasionText = $('.side-aligned-content.component .recipe-filter .recipe-selector select.occasion').val();
+			dataLayer.push({
+				'event' : 'recipe_selector',
+				'product_text' : productText,
+				'occasion_text' : occasionText
+			});
+		})
+		if($(".reveal_btn").length > 0){
+			$(".reveal_btn").each(function(){
+				if($(this).data("initialized")!="true"){
+					var revealTarget = "#"+$(this).data("target");
+					$(revealTarget).slideUp(0);
+					$(this).click(function(e){
+						e.preventDefault();
+						$(revealTarget).slideDown(250,function(){
+							$([document.documentElement, document.body]).animate({
+								scrollTop: $(revealTarget).offset().top - $(window).height() / 2
+							}, 250);
+						});
+					});
+				}
+			})
+
+		}
+	});
+})(jQuery);
+
+
+
+
+
