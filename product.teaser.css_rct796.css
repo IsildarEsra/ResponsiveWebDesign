@@ -1,0 +1,32 @@
+.product-grid{
+	margin-top: 20px;
+	margin-bottom: 20px;
+	position: relative;
+	z-index: 2;
+}
+.product-grid .cell-wrap{
+	float: left;
+	display: inline-block
+}
+.product-teaser {
+	margin: 0 auto;
+}
+.product-teaser a {
+	text-decoration: none;
+}
+.product-teaser .image {
+	padding: 10px 0;
+}
+.product-teaser a > .image {
+	margin-top: 30px;
+}
+.product-teaser .image > div {
+	margin: 0 auto;
+}
+.product-teaser .title {
+	border-top:2px solid #fff;
+	opacity: 1;
+	padding: 10px 0;
+	text-align: center;
+	transition: opacity .5s ease-in-out;
+}
