@@ -1,0 +1,39 @@
+(function($){
+	$(document).ready(function() {
+		var scrubber = (function() {
+			var scrubber = document.querySelectorAll('.product-detail video');
+
+			[].forEach.call( scrubber, function( element ) {
+				if (element.addEventListener) {
+					// IE9, Chrome, Safari, Opera
+					window.addEventListener('mousewheel', MouseWheelHandler, false);
+					// Firefox
+					window.addEventListener('DOMMouseScroll', MouseWheelHandler, false);
+				}
+				// IE 6/7/8
+				else window.attachEvent('onmousewheel', MouseWheelHandler);
+			});
+
+			function MouseWheelHandler(e) {
+				var offset = 0.01;
+				var scrollSpeed = 0.15;
+				var scrubber = document.querySelectorAll('.product-detail video');
+				var e = window.event || e; // old IE support
+				var delta = Math.min(1, Math.max(-1, (-e.wheelDelta || e.detail)));
+				if (delta > 0) {
+					if (scrubber[0].currentTime - offset  > scrubber[0].duration) {
+						scrubber[0].currentTime = scrubber[0].duration;
+					} else {
+						scrubber[0].currentTime += scrollSpeed;
+					}
+				} else {
+					if (scrubber[0].currentTime < offset) {
+						scrubber[0].currentTime = 0;
+					} else {
+						scrubber[0].currentTime -= scrollSpeed;
+					}
+				}
+			}
+		})();
+	});
+})(jQuery);
