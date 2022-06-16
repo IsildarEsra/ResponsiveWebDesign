@@ -1,0 +1,310 @@
+var eles = [];
+(function($){
+
+	//On page load check if this is a single or a grid
+	// For single page just get the information and fill in the places
+	// For a grid,  do the lookup on click and fill in the appropriate details
+
+
+	$(document).ready(function() {
+		// if($('.ecommerce').hasClass('single')){
+
+		// 	getData();
+		// } else {
+
+		// }
+
+
+		function buildEcom(row_idendent){
+			var row_parts = row_idendent.split('-');
+			var mpc = $('.'+row_idendent).data('market-product-code');
+			//console.log(row_parts, mpc);
+			getData(mpc);
+		}
+
+		var product_info = {};
+		function setDataForState(){
+				//console.log($(this).val());
+				//console.log(product_info);
+				if($('.ecommerce [name="states"]').val() !=- ""){
+					if(Object.keys(product_info).length != 0 ){
+						$('.location-area').removeClass('hide-item');
+						$('.current-state').html($('.ecommerce [name="states"]').val());
+						$('.state-selector').addClass('hide-item');
+						if(product_info.retailers_by_geo[$('.ecommerce [name="states"]').val()]){
+							var retailers = product_info.retailers_by_geo[$('.ecommerce [name="states"]').val()];
+							var marketProductCode = product_info.market_product_code;
+							html = "";
+							//console.log(retailers);
+							retailers = retailers.sort(function(a,b){
+								return parseInt(a.sort_weight,10) > parseInt(b.sort_weight,10) ? 1:-1;
+							});
+							//console.log(retailers);
+							retailers.forEach(function(prod_obj){
+								//loop over the retailers and display them
+
+								var data_usp = "";
+								var usp_info = '';
+								var retailer_name = "";
+
+								if(!prod_obj.logo_url){
+									prod_obj.logo_url = "https://res.cloudinary.com/hjqklbxsu/image/upload/v1576077456/ecommerce/default_icon.svg";
+								}
+								if(prod_obj.account_usp != 'null' && prod_obj.account_usp != null){
+									data_usp = 'data-retailer-promo="'+prod_obj.account_usp+'"';
+									usp_info = '<br/><span class="usp-text">'+prod_obj.account_usp+'</span>';
+								}
+
+
+								html += '<div><a  target="_blank" href="'+prod_obj.url+'" class="button retailer" role="button" aria-label="'+prod_obj.account_name+'" data-market-product-code="'+marketProductCode+'" '+data_usp+' data-product-name="'+ product_info.brand_name+'" data-product-detail="'+ product_info.product_name+'" data-retailer-name="'+prod_obj.account_name+'"><div class="button-table"><div class="image-cell"><img src="'+prod_obj.logo_url+'"> </div><div class="button-cell"> <span class="button-text-wrapper">'+ prod_obj.account_name + usp_info +'</span></div></div></a></div>';
+							});
+							$('.purchase-locations').html(html);
+						} else {
+							$('.apology-message').removeClass('hide-item');
+						}
+					}
+				}
+		}
+		function getData(marketProductCode,templateLocation){
+			//$.ajax('https://bf-epremise-locator-api-stage.herokuapp.com/product/'+marketProductCode, {//This is staging
+			$.ajax('https://epremise-api.b-fonline.com/product/'+marketProductCode, {
+				success: function(data) {
+					//console.log(data);
+					var geo_loc = data.retailers_by_geo;
+					//console.log(geo_loc);
+					if(Object.keys(geo_loc).length == 1){
+						var all_arr = geo_loc.all;
+						//console.log(all_arr);
+						//This means that there are no state specific retailers,  so no state selection
+						$('.state-selector, .location-area, .apology-message').addClass('hide-item');
+
+						var html = "";
+
+						all_arr = all_arr.sort(function(a,b){
+							return parseInt(a.sort_weight,10) > parseInt(b.sort_weight,10) ? 1:-1;
+						});
+
+						all_arr.forEach(function(prod_obj){
+							//loop over the retailers and display them
+							//console.log(prod_obj);
+							var data_usp='';
+							var usp_info='';
+							var retailer_name = "";
+
+							if(!prod_obj.logo_url){
+								prod_obj.logo_url = "https://res.cloudinary.com/hjqklbxsu/image/upload/v1576077456/ecommerce/default_icon.svg";
+							}
+							if(prod_obj.account_usp != 'null' && prod_obj.account_usp != null){
+								data_usp = 'data-retailer-promo="'+prod_obj.account_usp+'"';
+								usp_info = '<br/><span class="usp-text">'+prod_obj.account_usp+'</span>';
+							}
+
+
+							html += '<div><a  target="_blank" href="'+prod_obj.url+'" class="button retailer" role="button" aria-label="'+prod_obj.account_name+'" data-market-product-code="'+marketProductCode+'" '+data_usp+' data-product-name="'+ data.brand_name+'" data-product-detail="'+ data.product_name+'" data-retailer-name="'+prod_obj.account_name+'"><div class="button-table"><div class="image-cell"><img src="'+prod_obj.logo_url+'"> </div><div class="button-cell"> <span class="button-text-wrapper">'+ prod_obj.account_name + usp_info +'</span></div></div></a></div>';
+						});
+						$('.purchase-locations').html(html);
+
+					} else {
+						//console.log('state stuff goes here');
+
+
+						$('.apology-message, .location-area').addClass('hide-item');
+						//This means that there are no state specific retailers,  so no state selection
+						$('.state-selector').removeClass('hide-item');
+
+						product_info = data;
+						$('.purchase-locations').html(' ');
+						//This means there are state specific retailers and more JS involved.
+						setDataForState();
+					}
+
+				}
+			});
+		}
+
+
+		$('.close-area').on('click',function(e){
+			$('.grid-detail').slideUp(100).removeClass('display-item');
+			$('.location-area').addClass('hide-item');
+			$('.current-state').html(" ");
+			$('.state-selector').removeClass('hide-item');
+			$('.apology-message').addClass('hide-item');
+			$('.purchase-locations').html(" ");
+		});
+
+		$('.ecommerce').on('change','[name="states"]',function(e){
+			//console.log($(this).val());
+			//console.log(product_info);
+			if($(this).val() !=- ""){
+				if(Object.keys(product_info).length != 0 ){
+					$('.location-area').removeClass('hide-item');
+					$('.current-state').html($(this).val());
+					$('.state-selector').addClass('hide-item');
+					if(product_info.retailers_by_geo[$(this).val()]){
+						var retailers = product_info.retailers_by_geo[$(this).val()];
+						var marketProductCode = product_info.market_product_code;
+						html = "";
+						//console.log(retailers);
+						retailers = retailers.sort(function(a,b){
+							return parseInt(a.sort_weight,10) > parseInt(b.sort_weight,10) ? 1:-1;
+						});
+						//console.log(retailers);
+						retailers.forEach(function(prod_obj){
+							//loop over the retailers and display them
+
+							var data_usp = "";
+							var usp_info = '';
+							var retailer_name = "";
+
+							if(!prod_obj.logo_url){
+								prod_obj.logo_url = "https://res.cloudinary.com/hjqklbxsu/image/upload/v1576077456/ecommerce/default_icon.svg";
+							}
+							if(prod_obj.account_usp != 'null' && prod_obj.account_usp != null){
+								data_usp = 'data-retailer-promo="'+prod_obj.account_usp+'"';
+								usp_info = '<br/><span class="usp-text">'+prod_obj.account_usp+'</span>';
+							}
+
+
+							html += '<div><a  target="_blank" href="'+prod_obj.url+'" class="button retailer" role="button" aria-label="'+prod_obj.account_name+'" data-market-product-code="'+marketProductCode+'" '+data_usp+' data-product-name="'+ product_info.brand_name+'" data-product-detail="'+ product_info.product_name+'" data-retailer-name="'+prod_obj.account_name+'"><div class="button-table"><div class="image-cell"><img src="'+prod_obj.logo_url+'"> </div><div class="button-cell"> <span class="button-text-wrapper">'+ prod_obj.account_name + usp_info +'</span></div></div></a></div>';
+						});
+						$('.purchase-locations').html(html);
+					} else {
+						$('.apology-message').removeClass('hide-item');
+					}
+				}
+			}
+		});
+
+		$('.state-change').on('click', function(e){
+			$('.location-area').addClass('hide-item');
+			$('.current-state').html(" ");
+			$('.state-selector').removeClass('hide-item');
+			if(!$('.apology-message').hasClass('hide-item')){
+				$('.apology-message').addClass('hide-item');
+			}
+			$('.purchase-locations').html(" ");
+		});
+
+		function getStates(countryCode){
+			//$.ajax('https://bf-api-location.com/'+countryCode, {
+			var countryCode = getCountry();
+			$.ajax('https://epremise-api.b-fonline.com/subgeo/'+countryCode, {//This is temporary so i can keep working
+				success: function(data) {
+
+					//console.log(data);
+					//var states = [{'Alabama':'Alabama'},{'Alaska':'Alaska'},{'Arizona':'Arizona'}];
+					//var states = ['Alabama','Alaska','Arizona'];
+					for(var i=0; i<data.length; i++){
+						var option = $('<option />');
+						option.text(data[i].subgeo_name);
+						option.val(data[i].subgeo_name);
+						$('.states').append(option);
+					}
+					$('select.states').each(function(){
+						//console.log($(this));
+						window.rebuildSelect($(this),function(e){});
+					});
+
+				}
+			});
+		}
+		getStates('usa');
+
+		function find_last(row_location,row_end){
+			var new_loc = row_end - 1;
+			var viable_template = '';
+			if($('.template-'+row_location+'-'+new_loc).length == 0){
+				//console.log('not vialbe: '+'.template-'+row_location+'-'+new_loc);
+				viable_template = find_last(row_location,new_loc);
+			} else {
+				//console.log('found one: .template-'+row_location+'-'+new_loc);
+				return row_location+'-'+new_loc;
+			}
+			return viable_template;
+		}
+		function resetEcomLocation(){
+			$(".template-shop").css("marginLeft","-"+$(".template-shop").css("marginLeft",0).offset().left+"px");
+			$(".template-shop .arrow-up").css("marginLeft",+($(".template-shop").prev().offset().left + ($(".template-shop").prev().outerWidth()/2) - ($(".template-shop .arrow-up").outerWidth()/2))+"px");
+		}
+		$( window ).resize(function() {
+		  resetEcomLocation()
+		});
+
+		$('.grid-item a').on('click', function(){
+			$(".template-shop .purchase-locations").html("");
+			$(".template-shop").appendTo($(this).parent().parent().parent()).slideDown(100);
+			resetEcomLocation();
+			if($(this).data('title-location') == "before_message"){
+				$(".template-shop .title-area").html('<span class="product-title">'+$(this).data('product-title')+'</span> <span class="product-message">'+$(this).data('product-message')+'</span>');
+			} else {
+				$(".template-shop .title-area").html('<span class="product-message">'+$(this).data('product-message')+'</span> <span class="product-title">'+$(this).data('product-title')+'</span>');
+			}
+
+			getData($(this).data('market-product-code'));
+		});
+
+
+		if($('.ecommerce').hasClass('single')){
+			if($('.ecommerce').hasClass('global')){
+				var i;
+				for(i=0; i< globalMPC.length; i++){
+					$.ajax('https://epremise-api.b-fonline.com/product/'+globalMPC[i], {
+							success: function(data) {
+								var iso2Country = data.country_iso2;
+								if(iso2Country.toLowerCase() == getCountry().toLowerCase()){
+									$('.ecommerce').data('market-product-code',data.market_product_code)
+									$('.shop-bottles').addClass('display-item');
+									getData(data.market_product_code);
+								}
+							},
+							complete: function(){
+								setTimeout(function(){
+									if($(".purchase-locations").children().length == 0){
+										$('.state-selector, .location-area, .apology-message').addClass('hide-item');
+										$(".globalecomm-sorry-msg").css("display","block");
+									}
+								},1000);
+
+							}
+						});
+				}
+			}else{
+				//We are on a single page and should run the single js
+				$('.shop-bottles').addClass('display-item');
+				getData($('.ecommerce').data('market-product-code'));
+			}
+		}else{
+			if($('.ecommerce').hasClass('global')){
+				$('.ecommerce a.product-expand').each(function(){
+					eles.push(this);
+					$(this).parent().parent().parent().css("display","none");
+					var itemNumber = $(this).data("item-number") - 1;
+					for(i=0; i< globalMPC[itemNumber].length; i++){
+						if(globalMPC[itemNumber].length >= 1){
+							$.ajax({
+									url:'https://epremise-api.b-fonline.com/product/'+globalMPC[itemNumber][i],
+									indexValue: itemNumber,
+									success: function( data ) {
+										var iso2Country = data.country_iso2;
+										if(iso2Country.toLowerCase() == getCountry().toLowerCase()){
+											$(eles[this.indexValue]).parent().parent().parent().css("display","block");
+											$(eles[this.indexValue]).attr('data-market-product-code',data.market_product_code)
+											$(eles[this.indexValue]).data('market-product-code',data.market_product_code)
+											//getData(data.market_product_code);
+											$(".globalecomm-sorry-msg").css("display","none");
+											i = 9999999;
+										}
+									}
+							});
+						}
+					}
+
+				});
+
+			}
+		}
+
+	});
+
+
+})(jQuery);
