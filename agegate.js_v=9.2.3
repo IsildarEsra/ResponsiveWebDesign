@@ -1,0 +1,268 @@
+function hasCookie() {
+	if (document.location.href.indexOf('trust=yes') !== -1) {
+		var cookie = 'STYXKEY_age_validated=1; path=/; max-age=' + (60*60*2);
+		document.cookie = cookie;
+		return true;
+	}
+	var cookie = document.cookie.replace(/(?:(?:^|.*;\s*)STYXKEY_age_validated\s*\=\s*([^;]*).*$)|^.*$/, "$1");
+	if (cookie == '1')
+		return true;
+	else if (cookie == '0')
+		window.location = getUnderageURLFromCountry(getCountry());
+}
+function getUnderageURLFromCountry(country){
+	switch(country){
+		case "au":
+			return "https://drinkwise.org.au/";
+			break;
+		case "de":
+			return "http://massvoll-geniessen.de/";
+			break;
+		case "fr":
+			return "https://responsibledrinking.eu/";
+			break;
+		case "gb":
+			return "https://drinkaware.co.uk/";
+			break;
+		case "ie":
+			return "https://www.drinkaware.ie/";
+			break;
+		case "it":
+			return "http://www.beresponsabile.it/";
+			break;
+		case "za":
+			return "https://aware.org.za/";
+			break;
+		case "bg":
+			return "http://konsumirai-otgovorno.bg/";
+			break;
+		default:
+			return "http://responsibility.org/";
+			break;
+	}
+}
+// Initial load check
+hasCookie();
+
+// window.fbAsyncInit = function() {
+// 	FB.init({
+// 		appId      : '1247612565268197',
+// 		cookie     : true,  // enable cookies to allow the server to access
+// 		                    // the session
+// 		xfbml      : true,  // parse social plugins on this page
+// 		version    : 'v2.5' // use graph api version 2.5
+// 	});
+// };
+
+// Load the SDK asynchronously
+// (function(d, s, id) {
+// var js, fjs = d.getElementsByTagName(s)[0];
+// if (d.getElementById(id)) return;
+// js = d.createElement(s); js.id = id;
+// js.src = "//connect.facebook.net/en_US/sdk.js";
+// fjs.parentNode.insertBefore(js, fjs);
+// }(document, 'script', 'facebook-jssdk'));
+
+// Here we run a very simple test of the Graph API after login is
+// successful.  See statusChangeCallback() for when this call is made.
+
+(function($) {
+	// jQuery ready check
+	$(document).ready(function() {
+		// Document ready check
+		hasCookie();
+
+		var passed_valid = document.cookie.replace(/(?:(?:^|.*;\s*)STYXKEY_age_validated\s*\=\s*([^;]*).*$)|^.*$/, "$1");
+	if (passed_valid == '1'){
+			$('.age-gate').hide();
+			$('.age-gate').removeClass('age-gate');
+			$('footer.site-footer').show();
+		}
+
+		var facebook_submit = false;
+		// $('button.verify-facebook').on('click', function() {
+		// 	FB.login(function(response) {
+		// 		if (response.status === 'connected') {
+		// 		    // Logged into your app and Facebook.
+		// 		    FB.api('/me',{fields: 'birthday'}, function(response) {
+		// 			    birthday_bits = response.birthday.split("/");
+		// 			    y = birthday_bits[2];
+		// 			    m = birthday_bits[0];
+		// 			    d = birthday_bits[1];
+		// 			    $('.age-gate #day').val(d);
+		//     			$('.age-gate #month').val(m);
+		//     			$('.age-gate #year').val(y);
+		//     			$('.age-gate .middle .button').addClass('enabled');
+		//     			facebook_submit = true;
+		//     			$('.age-gate .middle form').submit();
+		// 			});
+		// 		}
+  //  			},{scope:"user_birthday"});
+		// });
+
+		function setCookie(passed) {
+			var cookie = 'STYXKEY_age_validated='+(passed?'1':'0')+'; path=/';
+			var time;
+			if (passed) {
+				if ($('.age-gate #remember').is(':checked'))
+					time = (60*60*24);
+				else
+					time = (60*60*2);
+			}
+			else if (!passed)
+				time = (60*60);
+
+			cookie += '; max-age=' + time;
+
+			document.cookie = cookie;
+
+			cookie = 'cookies_expire='+(Math.floor(Date.now() / 1000)+time)+'; path/ max-age='+time;
+		}
+		function calculateAge(day, month, year) {
+			var today=new Date();
+			var age=today.getFullYear()-year;
+			if(today.getMonth()<month || (today.getMonth()==month && today.getDate()<day)){age--;}
+			return age;
+		}
+		function validateAge() {
+		    var day = $('.age-gate #day'),
+		    	month = $('.age-gate #month'),
+		    	year = $('.age-gate #year');
+
+		    if (day.val() != '' && month.val() != '' && year.val() != '') {
+		    	if (/[\d]{1,2}/.test(day.val()) && /[\d]{1,2}/.test(month.val()) && /[\d]{4}/.test(year.val())) {
+		    		if (parseInt(day.val()) > 0 && parseInt(day.val()) <= 31 && parseInt(month.val()) > 0 && parseInt(month.val()) < 13 && parseInt(year.val()) >= 1900) {
+		    			$('.age-gate .middle .button').addClass('enabled');
+		    			$('.age-gate .middle').addClass('enabled');
+		    		} else {
+		    			$('.age-gate .middle .button').removeClass('enabled');
+		    			$('.age-gate .middle').removeClass('enabled');
+		    		}
+		    	} else {
+	    			$('.age-gate .middle .button').removeClass('enabled');
+	    		}
+		    }
+		}
+
+		$('.age-gate .dob').on('keydown', 'input', function(e) {
+			if ((e.which == 32 || (e.which >= 65 && e.which <= 90)  || (e.which >= 106 && e.which <= 111) || (e.which >= 186 && e.which <= 192) || (e.which >= 219 && e.which <= 222)) && !e.metaKey && !e.ctrlKey && !e.altKey) {
+				e.preventDefault();
+			}
+		});
+		// var captureEvent = 'keyup';
+		// if ($('html.chrome.mobile-landed').hasClass('android4') || $('html.chrome.mobile-landed').hasClass('android5'))
+		// 	captureEvent = 'keyup textInput';
+		// $('.age-gate .dob').on(captureEvent, 'input', function (e) {
+		// 	if (e.type == 'textInput')
+		// 		e.which = e.originalEvent.data.charCodeAt(0);
+		// 	if(($(this).val().length + (e.type == 'textInput' ? 1 : 0)) == parseInt($(this).attr('maxlength')) && ((e.which >= 48 && e.which <= 57) || (e.which >= 96 && e.which <= 105))) {
+		// 		if ($(this).attr('id') != 'year')
+		// 			$(this).next().focus();
+		// 	} else {
+		// 		$('.age-gate .middle .button').removeClass('enabled');
+		// 		$('.age-gate .middle').removeClass('enabled');
+		// 	}
+		// 	validateAge();
+		// });
+		$('.age-gate .dob').on('keyup', 'input', function (e) {
+			if($(this).val().length == parseInt($(this).attr('maxlength')) && ((e.which >= 48 && e.which <= 57) || (e.which >= 96 && e.which <= 105))) {
+				if ($(this).attr('id') != 'year')
+					$(this).next().focus();
+			} else {
+				$('.age-gate .middle .button').removeClass('enabled');
+				$('.age-gate .middle').removeClass('enabled');
+			}
+			validateAge();
+		});
+		$('.age-gate .dob').on('focus blur', 'input', function(e) {
+			var month = $('.age-gate .dob #month'),
+				day = $('.age-gate .dob #day'),
+				year = $('.age-gate .dob #year');
+			if (month.val() > 0 && month.val() < 13)
+				month.addClass('success');
+			if (day.val() > 0 && day.val() < 32)
+				day.addClass('success');
+			if (year.val() >= 1900)
+				year.addClass('success');
+
+			if (e.type == 'focusin') {
+				$(this).removeClass('error success');
+			} else if (e.type == 'focusout') {
+				if ($(this).is('#month') && (month.val() < 1 || month.val() > 12)) {
+					$(this).addClass('error');
+				}
+				if ($(this).is('#day') && (day.val() < 1 || day.val() > 31)) {
+					$(this).addClass('error');
+				}
+				if ($(this).is('#year') && year.val() < 1900) {
+					$(this).addClass('error');
+				}
+				$('.age-gate .dob div.error').html('');
+				$('.age-gate .dob div.error').html($('.age-gate .dob input.error').first().data('error'));
+			}
+		});
+
+		$('.age-gate .middle form').on('submit', function(e) {
+			e.preventDefault();
+
+			if ($('button', this).hasClass('enabled')) {
+				var day = $('.age-gate #day'),
+					month = $('.age-gate #month'),
+					year = $('.age-gate #year'),
+					country = $('.age-gate select.country-select-gate');
+
+				$('.age-gate .middle input').blur();
+				$.ajax('https://api.b-fonline.com/api/validate_lda', {
+					data: {
+						birth_date: year.val()+"-"+month.val()+"-"+day.val(),
+						country: (typeof drupalSettings.agegate_country != 'undefined' ? drupalSettings.agegate_country : country.val()),
+						category: 'spirits'
+					},
+					method: 'POST',
+					success: function(data) {
+						if (data) {
+							$(window).scrollTop(0);
+							setCookie(true);
+							setCountry(country.val(), $('.age-gate #remember').is(':checked') ? (60*60*24) : (60*60*2));
+							var ageType = 'TICKER';
+							if(facebook_submit == true){ageType = 'FACEBOOK';}
+							dataLayer.push({
+								'event': 'age_gate',
+								'ageType': ageType,
+								'passFail': 'PASS'
+							});
+							$('.age-gate').hide();
+							$('.age-gate').removeClass('age-gate');
+							$('footer.site-footer').show();
+							$(window).resize();
+							//window.location.reload(true);
+						} else {
+							$('.age-gate .middle').html('');
+							$('.age-gate .top h4').css('display', 'none');
+							$('.age-gate .failure').addClass('visible');
+							$('.age-gate .top p, .age-gate .top button').css('display', 'none');
+							setCookie(false);
+							var ageType = 'TICKER';
+							if(facebook_submit == true){ageType = 'FACEBOOK';}
+							dataLayer.push({
+								'event': 'age_gate',
+								'ageType': ageType,
+								'passFail': 'FAIL'
+							});
+							setCountry(country.val(), (60*60));
+							setTimeout(function() {
+								window.location = getUnderageURLFromCountry(getCountry());
+							}, 5000);
+						}
+					}
+				});
+			}
+		});
+		$('.age-gate .middle label').off('click');
+		$('.age-gate .middle label').on('click', function(e) {
+			e.preventDefault();
+			$(this).toggleClass('checked');
+			$('input[type="checkbox"]', this).attr('checked', $(this).hasClass('checked'));
+		});
+	});
+})(jQuery)
