@@ -1,0 +1,38 @@
+(function($) {
+	var singleTimeout;
+	function resize() {
+		$('.drawer-wrapper').each(function(){
+			var drawer = $('.drawer', this),
+				inner = $('.inner', drawer),
+				buttons = $('.display-buttons', this);
+
+			if (buttons.hasClass('open')) {
+				drawer.css('height', inner.innerHeight());
+			}
+		});
+	}
+
+	$('.display-buttons button').on('click', function(){
+		$(this).parent().toggleClass('open');
+		if($(this).parent().hasClass('open')){
+			$(this).parent().prev('.drawer').children('.inner').css('display','block');
+			var inner_height = $('.inner', $(this).parent().prev('.drawer')).innerHeight();
+			$(this).parent().prev('.drawer').css('height',inner_height);
+			$(this).siblings(".hide-text").delay(100).focus();
+		} else {
+			$(this).parent().prev('.drawer').css('height','');
+			$(this).parent().prev('.drawer').children('.inner').css('display','none');
+			$(this).siblings(".show-text").delay(100).focus();
+		}
+	});
+
+	$(window).on('resize', function() {
+		clearTimeout(singleTimeout);
+		singleTimeout = setTimeout(resize, 300);
+	});
+
+	$(document).ready(function(e) {
+		resize();
+	});
+
+})(jQuery);
