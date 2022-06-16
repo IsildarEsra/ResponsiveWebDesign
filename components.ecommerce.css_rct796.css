@@ -1,0 +1,516 @@
+.ecommerce{
+  padding: 10px;
+  display: block;
+}
+
+.ecommerce.component{
+  z-index: 101;
+}
+
+.ecommerce h2{
+  text-align: center;
+}
+
+.ecommerce .cell-wrap {
+  align-items: stretch;
+  display: block;
+  float: left;
+  padding: 20px 0px 40px 0px;
+}
+.ecommerce-grid-wrapper{
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction:row;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+.ecommerce .grid-teaser {
+  cursor: pointer;
+  display: block;
+  overflow: hidden;
+  padding-bottom: 100%;
+  position: relative;
+}
+.ecommerce .grid-teaser a {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  text-decoration: none;
+}
+
+.ecommerce .gold-bars, .ecommerce.gold-bars {
+  border-top:2px solid #baab8f;
+  border-bottom:2px solid #baab8f;
+}
+
+.ecommerce .apology-message{
+  border:1px solid #fff;
+  padding: 15px;
+  font-family: "EditSerifCy",Slab-Serif,Sans-Serif;
+  font-size: 16px;
+}
+
+.ecommerce .shop-bottles{
+  display: none;
+  margin-top: 40px;
+}
+
+.ecommerce .grid-detail {
+  display: none;
+  overflow: visible !important;
+  position:relative;
+  width:100vw;
+  z-index:999999;
+}
+
+.ecommerce .shop-bottles.display-item, .ecommerce .grid-detail.display-item{
+  display: block;
+}
+
+.ecommerce .hide-item{
+  display: none;
+}
+
+.ecommerce .single-detail {
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+
+.ecommerce .location-area .state-change{
+  text-decoration: underline;
+  cursor: pointer;
+  font-weight: lighter;
+  font-family: "HWTUnitGothic",Sans-Serif;
+  color: #baab8f;
+  text-align: right;
+  margin-left: 40px;
+}
+
+.ecommerce .close-area{
+  cursor: pointer;
+  font-weight: lighter;
+  font-family: "HWTUnitGothic",Sans-Serif;
+  color: #baab8f;
+  padding-bottom: 20px;
+  font-size: 20px;
+}
+
+.ecommerce .close-area span{
+  padding-left: 7px;
+  font-size: 13px;
+}
+
+.ecommerce .legal-area{
+  margin-top: 40px;
+}
+
+.ecommerce .mobile-legal-area{
+  display: none;
+}
+
+.ecommerce .grid-detail .legal-area, .ecommerce .grid-detail .title-area{
+  padding-left:5%;
+}
+
+.ecommerce .grid-detail .right-wrapper{
+  padding-left:0;
+}
+
+.ecommerce .grid-detail .right-side{
+  margin-top: 0px;
+}
+.ecommerce .location-area{
+  font-weight: lighter;
+  font-family: "HWTUnitGothic",Sans-Serif;
+  color: #fff;
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+
+.ecommerce .single-detail p, .ecommerce .grid-detail p {
+  font-size: 16px;
+  line-height: 16px;
+  font-style: italic;
+  font-weight: lighter;
+}
+
+.ecommerce .product-title{
+  font-size: 45px;
+  color: #baab8f;
+  font-family: "HWTUnitGothic",Sans-Serif;
+  letter-spacing: .065em;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.ecommerce .product-message{
+  font-size: 45px;
+  color:#fff;
+  font-family: "HWTUnitGothic",Sans-Serif;
+  letter-spacing: .065em;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.ecommerce .arrow-up {
+ width: 0;
+    height: 0;
+    border-left: 30px solid transparent;
+    border-right: 30px solid transparent;
+    border-bottom: 15px solid #baab8f;
+    position: absolute;
+    top: -17px;
+}
+
+.ecommerce a.button{
+  padding: 6px 20px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.ecommerce .button-table{
+  display: flex;
+  align-items: center;
+  width: 250px;
+}
+
+.ecommerce .usp-text{
+  color: #fff;
+
+}
+
+.ecommerce .image-cell{
+  padding-right: 20px;
+}
+
+.ecommerce .image-cell img{
+  width: 45px;
+  height: 45px;
+}
+
+.ecommerce a div.button-table .button-cell span.button-text-wrapper{
+  display: block;
+
+}
+
+/* Select styling*/
+
+.ecommerce .select-wrapper{
+  width: 100%;
+}
+
+.ecommerce .mod-select {
+  border: 2px solid #fff;
+  box-sizing: border-box;
+  color: #FFF;
+  cursor: pointer;
+  display: block;
+  float: left;
+  min-width: inherit;
+  position: relative;
+  width: 100%;
+}
+.ecommerce .mod-select .selected {
+  background-color: #131313;
+  border: none;
+  font-family: 'HWTUnitGothic',Sans-Serif;
+  font-size: 18px;
+  font-weight: bold;
+  letter-spacing: .025em;
+  padding: 1em 1em;
+  padding-right: 30px;
+  position: relative;
+  text-align: left;
+  text-transform: uppercase;
+}
+.ecommerce .mod-select .dropdown {
+  background-color: #131313;
+}
+.ecommerce .mod-select .dropdown,
+.ecommerce .mod-select.cl-drop .dropdown {
+  border: 2px solid #fff;
+  left: -2px;
+  right: -2px;
+}
+.ecommerce .mod-select.cl-drop.collapsed .dropdown {
+  border-width: 0;
+  height: 0;
+}
+.ecommerce .mod-select .dropdown li {
+  background-color: #131313;
+  color: #fff;
+  font-family: 'HWTUnitGothic',Sans-Serif;
+  font-size: 18px;
+  font-weight: bold;
+  letter-spacing: .025em;
+  line-height: 19px;
+}
+.ecommerce .mod-select.cl-drop {
+  min-width: 230px;
+}
+.ecommerce .mod-select.cl-drop .selected {
+  border: none;
+  line-height: 16px;
+  padding: 15px;
+}
+
+.ecommerce .mod-select .selected {
+  border: none;
+  line-height: 16px;
+  padding: 15px;
+}
+.ecommerce .mod-select .selected:after {
+  right: 15px;
+}
+
+
+
+
+
+/* Grid styling */
+
+.ecommerce .grid-teaser .image {
+  -webkit-transition: -webkit-filter 1s ease-in-out;
+  -moz-transition: -moz-filter 1s ease-in-out;
+  -ms-transition: -ms-filter 1s ease-in-out;
+  -o-transition: -o-filter 1s ease-in-out;
+  transition: filter 1s ease-in-out, -webkit-filter 1s ease-in-out;
+}
+.ecommerce .grid-teaser:hover .image, .ecommerce .grid-teaser:focus-within .image {
+  -webkit-transition: -webkit-filter .5s ease-in-out;
+  -moz-transition: -moz-filter .5s ease-in-out;
+  -ms-transition: -ms-filter .5s ease-in-out;
+  -o-transition: -o-filter .5s ease-in-out;
+  transition: filter .5s ease-in-out, -webkit-filter .5s ease-in-out;
+}
+.ecommerce .grid-teaser .image img {
+  display: flex;
+  height: 100%;
+  width: 100%;
+}
+.ecommerce .grid-teaser:hover .image,.ecommerce .grid-teaser:focus-within .image,
+.ecommerce .grid-teaser.triggered .image {
+  -webkit-filter: brightness(2) blur(2px);
+  -moz-filter: brightness(2) blur(2px);
+  -ms-filter: brightness(2) blur(2px);
+  -o-filter: brightness(2) blur(2px);
+  filter: brightness(2) blur(2px);
+}
+
+.ecommerce .grid-teaser.nochange .image {
+  -webkit-filter: blur(0px);
+  -moz-filter: blur(0px);
+  -ms-filter: blur(0px);
+  -o-filter: blur(0px);
+  filter: blur(0px);
+}
+
+.ecommerce .grid-teaser .hover-info {
+  background: rgba(0,0,0,.6);
+  bottom: 0;
+  left: 0;
+  opacity: 0;
+  padding: 0px;
+  position: absolute;
+  text-align: center;
+  top: 0;
+  -webkit-transition: opacity .5s ease-in-out;
+  -moz-transition: opacity .5s ease-in-out;
+  -ms-transition: opacity .5s ease-in-out;
+  -o-transition: opacity .5s ease-in-out;
+  transition: opacity .5s ease-in-out;
+  right: 0;
+}
+
+.ecommerce .grid-teaser.nochange .hover-info {
+  background: rgba(0,0,0,0);
+}
+
+html.ie .ecommerce .grid-teaser .hover-info,
+html.ie9 .ecommerce .grid-teaser .hover-info,
+html.ie10 .ecommerce .grid-teaser .hover-info,
+html.ie11 .ecommerce .grid-teaser .hover-info {
+  background: rgba(0,0,0,.8);
+}
+.ecommerce .grid-teaser:hover .hover-info,
+.ecommerce .grid-teaser:focus-within .hover-info,
+.ecommerce .grid-teaser.triggered .hover-info,
+.ecommerce .grid-teaser.nochange .hover-info {
+  opacity: 1;
+}
+.ecommerce .grid-teaser .hover-info .hover-wrap {
+  border: none;
+  box-sizing: border-box;
+  display: table;
+  height: 100%;
+  padding: 0px;
+  width: 100%;
+}
+.ecommerce .grid-teaser .hover-info .hover-wrap h2 {
+  padding-bottom: 15px;
+  padding-top: 0;
+}
+.ecommerce .grid-teaser .hover-info .hover-wrap .button {
+  background: none;
+  margin: 0;
+  min-width: 60%;
+  border-width: 2px;
+  padding: 12px 25px;
+  font-size: 18px;
+}
+
+.ecommerce .grid-teaser .hover-info .hover-wrap .hover-center {
+  display: table-cell;
+  vertical-align: middle;
+}
+.ecommerce .grid-teaser a .hover-center:before {
+  color: #fff;
+  -webkit-filter: blur(2px);
+  -moz-filter: blur(2px);
+  -ms-filter: blur(2px);
+  -o-filter: blur(2px);
+  filter: blur(2px);
+    font-family: "jdicons";
+    font-size: 200px;
+    left: 0;
+    margin-top: -100px;
+    opacity: .15;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    vertical-align: middle;
+}
+.ecommerce .grid-teaser a[href*="instagram.com"] .hover-center:before {
+    content: "\e90c";
+    opacity: .25;
+}
+.ecommerce .grid-teaser a[href*="twitter.com"] .hover-center:before {
+    content: "\e911";
+}
+.ecommerce .grid-teaser a[href*="facebook.com"] .hover-center:before {
+    content: "\e90a";
+}
+.ecommerce .grid-teaser a[href*="pinterest.com"] .hover-center:before {
+    content: "\e90e";
+}
+html.ie.ecommerce .grid-teaser a .hover-center:before,
+html.ie9.ecommerce .grid-teaser a .hover-center:before,
+html.ie10.ecommerce .grid-teaser a .hover-center:before,
+html.ie11.ecommerce .grid-teaser a .hover-center:before {
+  opacity: .05 !important;
+}
+.ecommerce .grid-teaser .hover-info .hover-wrap .hover-center h3 {
+  font-size:24px;
+  padding-bottom: 15px;
+}
+
+.ecommerce .grid-teaser.social-tile .image {
+  display: table;
+  height: 100%;
+  width: 100%;
+}
+.ecommerce .grid-teaser.social-tile .image > div {
+  display: table-cell;
+  padding: 20px 45px;
+  vertical-align: middle;
+}
+.ecommerce .grid-teaser .image > div:after {
+  bottom: 24px;
+  color: #fff;
+  font-family: 'jdicons';
+  font-size: 24px;
+  font-weight: normal;
+  left: 45px;
+  position: absolute;
+}
+.ecommerce .grid-teaser .image > div.twitter:after {
+  content: "\e911";
+}
+.ecommerce .grid-teaser .image > div.facebook:after {
+  content: "\e90a";
+}
+.ecommerce .grid-teaser .image > div.instagram:after {
+  content: "\e90c";
+}
+.ecommerce .grid-teaser .image > div.pinterest:after {
+  content: "\e90e";
+}
+.ecommerce .grid-teaser.social-tile .image h5 {
+  color: #baab8f;
+  margin-bottom: 30px;
+}
+.ecommerce .grid-teaser.social-tile .image p {
+  font-weight: normal;
+  margin-bottom: 24px;
+}
+.ecommerce .grid-teaser.social-tile .image .anchor-link {
+  color: #baab8f;
+}
+
+@media (max-width: 480px) {
+
+    .ecommerce .legal-area{
+    margin-top: 40px;
+    display: none;
+  }
+
+  .ecommerce .grid-detail .right-wrapper{
+    padding-left:5%;
+  }
+  .ecommerce .mobile-legal-area{
+     margin-top: 40px;
+    display: block;
+  }
+
+  .ecommerce .grid-detail .right-side{
+    margin-top: 40px;
+  }
+
+  .ecommerce .grid-teaser .hover-info .hover-wrap .hover-center h3{
+    font-size: 6.5vw;
+    padding-bottom:10px;
+  }
+  .ecommerce .grid-teaser .hover-info{
+    background: rgba(0,0,0,.25);
+
+  }
+  .ecommerce .grid-teaser .hover-info .hover-wrap{
+    border:none;
+  }
+  .ecommerce .grid-teaser .hover-info {
+    opacity: 1;
+  }
+  .ecommerce .grid-teaser .hover-info .button {
+    background-color: rgba(0,0,0,0.35) !important;
+    font-size: 4.5vw !important;
+    padding: 2vw 5vw !important;
+  }
+  .ecommerce .grid-teaser .hover-info button.button:before{
+    content: '';
+    position: absolute;
+    background-color: #baab8f;
+    right: 100%;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    z-index: -1;
+    -webkit-transition: right .15s ease-in-out;
+    -moz-transition: right .15s ease-in-out;
+    -o-transition: right .15s ease-in-out;
+    -ms-transition: right .15s ease-in-out;
+    transition: right .15s ease-in-out;
+  }
+  .ecommerce .grid-teaser .hover-info button.button:hover:before,  .ecommerce .grid-teaser .hover-info button.button:focus:before{
+    right: 0px;
+    color:#fff;
+  }
+  .ecommerce .grid-teaser .hover-info button.button:hover, .ecommerce .grid-teaser .hover-info button.button:focus{
+    color: #000;
+  }
+  .ecommerce .grid-teaser .hover-info button.button:hover .svg-wrap svg,  .ecommerce .grid-teaser .hover-info button.button:focus .svg-wrap svg{
+    fill: #000;
+  }
+}
