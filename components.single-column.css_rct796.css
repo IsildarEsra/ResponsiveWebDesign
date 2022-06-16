@@ -1,0 +1,90 @@
+.single-column-content {
+	padding: 10px 0px 10px 0px;
+	overflow: auto;
+}
+
+.single-column-content .drawer {
+	height: 0;
+	overflow: hidden;
+}
+
+.single-column-content blockquote p {
+	font-size: 36px;
+	line-height: 45px;
+}
+html.wf-inactive .single-column-content blockquote p {
+	font-size: 21px;
+	line-height: 26px;
+}
+
+.single-column-content ul {
+	list-style: disc;
+	padding-left: 30px;
+}
+
+.single-column-content .offset {
+	margin: 0 auto;
+}
+
+.single-column-content hr {
+	border-bottom: 1px;
+	border-color: #baab8f;
+	border-left: 0px;
+	border-right: 0px;
+	border-style: solid;
+	border-top: 1px;
+	height: 3px;
+}
+.single-column-content .text-left {
+	text-align: left;
+}
+.single-column-content .text-center {
+	text-align: center;
+}
+.single-column-content .text-right {
+	text-align: right;
+}
+.single-column-content .display-buttons .hide-text,
+.single-column-content .display-buttons.open .show-text {
+	display: none;
+}
+.single-column-content .display-buttons .show-text,
+.single-column-content .display-buttons.open .hide-text {
+	display: block;
+}
+
+.single-column-content .main-icon-placement {
+	text-align: center;
+}
+
+.single-column-content .main-icon-placement .svg-wrap svg {
+	fill: #fff;
+	height: 100%;
+	max-height: 60px;
+	max-width: 60px;
+	width: 100%;
+
+}
+.single-column-content .main-icon-placement .svg-wrap.svg-forced-color svg path {
+    fill: #fff;
+}
+
+.single-column-content table, .single-column-content tr, .single-column-content td{
+	border: 1px solid #baab8f;
+}
+
+.single-column-content td{
+	padding: 10px;
+	vertical-align: middle;
+}
+
+@media (max-width: 480px) {
+	.single-column-content blockquote p {
+		font-size: 24px;
+		line-height: 35px;
+	}
+	html.inactive .single-column-content blockquote p {
+		font-size: 14px;
+		line-height: 16px;
+	}
+}
