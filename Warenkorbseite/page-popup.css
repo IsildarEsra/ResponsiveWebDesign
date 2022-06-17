@@ -1,0 +1,155 @@
+.age-verification-popup .modal-inner-wrap {
+    position: absolute;
+    vertical-align: middle;
+    text-align: center;
+    background-color: #fff;
+    overflow: auto;
+    width: fit-content;
+    transition: transform 1s ease;
+}
+
+.age-verification-popup .modal-inner-wrap .modal-header {
+    display: none;
+}
+
+.age-verification-popup .modal-content form .field  {
+    position: relative;
+    display: flex;
+    width: 60%;
+    left: 20%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.age-verification-popup .modal-content .date-picker form .input-field  {
+    display: flex !important;
+    margin-right: 10px;
+}
+
+.age-verification-popup .modal-content .enter-year form .input-field  {
+    margin-right: 10px;
+}
+
+.age-verification-fullscreen .modal-inner-wrap {
+    position: relative;
+    vertical-align: middle;
+    text-align: center;
+    background-color: #fff;
+    overflow: auto;
+    width: 100%;
+    height: 100%;
+    max-height: 100% !important;
+    margin: 0 !important;
+}
+
+.age-verification-fullscreen .modal-inner-wrap .modal-header {
+    display: none;
+}
+
+.age-verification-fullscreen .modal-content {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    width: 50%;
+    left: 25%;
+    text-align: center;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+.age-verification-fullscreen .modal-content form .field  {
+    position: relative;
+    display: inline-flex;
+    width: fit-content;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.input-field {
+    display: grid;
+}
+
+/* custom for only jackdaniel site*/
+.age-verification-popup .modal-inner-wrap {
+    background-color: black;
+    margin-top: 5rem !important;
+}
+
+.age-verification-popup .modal-content {
+    padding: 3rem;
+}
+
+.age-verification-popup .action-type .primary button{
+    background-color: black;
+}
+
+.age-verification-popup .action-type.yesno button{
+    background-color: black;
+}
+
+
+.age-verification-fullscreen .modal-inner-wrap {
+    background-color: black !important;
+}
+
+.age-verification-fullscreen .action-type .primary button{
+    background-color: black;
+}
+
+.age-verification-fullscreen .action-type.yesno button{
+    background-color: black;
+}
+
+.age-verification-fullscreen .modal-content .action-type form .input-field  {
+    display: flex !important;
+    margin-right: 10px;
+}
+
+.age-verification-fullscreen .modal-content .action-type form .input-field  {
+    margin-right: 10px;
+}
+
+/* end custom */
+
+@media only screen and (max-width: 767px) {
+    .age-verification-popup .modal-inner-wrap {
+        position: absolute;
+        vertical-align: middle;
+        text-align: center;
+        background-color: #fff;
+        overflow: auto;
+        width: fit-content;
+        transition: transform 1s ease;
+        min-height: unset !important;
+    }
+
+    .age-verification-popup .modal-content form .field  {
+        position: relative;
+        display: flex;
+        width: 100%;
+        left: unset;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+    .age-verification-popup {
+        left: 20px !important;
+        right: 20px;
+    }
+
+    .age-verification-fullscreen {
+        left: 0 !important;
+    }
+
+    .age-verification-fullscreen .modal-content {
+        margin: 0;
+        padding: 0;
+        position: absolute;
+        top: 50%;
+        width: 100%;
+        left: 0;
+        text-align: center;
+        -ms-transform: translateY(-50%);
+        transform: translateY(-50%);
+    }
+}
