@@ -68,27 +68,7 @@ function goToConsent(id){
 	document.getElementById('teconsent').scrollIntoView();
 }
 
-function getCookie(cname) {
-	let name = cname + "=";
-	let decodedCookie = decodeURIComponent(document.cookie);
-	let ca = decodedCookie.split(';');
-	for(let i = 0; i <ca.length; i++) {
-		let c = ca[i];
-		while (c.charAt(0) == ' ') {
-		c = c.substring(1);
-		}
-		if (c.indexOf(name) == 0) {
-		return c.substring(name.length, c.length);
-		}
-	}
-	return "";
-}
-function setCookie(cname, cvalue, exdays) {
-	const d = new Date();
-	d.setTime(d.getTime() + (exdays*24*60*60*1000));
-	let expires = "expires="+ d.toUTCString();
-	document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
-}
+
 
 (function ($) {
 	(function(){var e=window.navigator.userAgent==""?"Mozilla/5.0 (Windows NT 6.1; WOW64; rv:29.0) Gecko/20120101 Firefox/29.0":window.navigator.userAgent,t=!!(num=e.match(/((?=.*Trident)(?=.*(msie|rv).([\d]{1,2})))/i))?"ie"+num[3]:false,n=t||(/Edge/i.test(e)?e.match(/Edge/i)[0].toLowerCase():"")||(/Safari|Firefox|Chrome/i.test(e)?e.match(/Safari|Firefox|Chrome/i)[0].toLowerCase():""),r=/ipad|tablet(?! pc \d)|xoom|kindle|android(?!.*mobile)/i.test(e),i=/^(?=.*mobi|mini|phone|port|x320)(?:(?!ipad).)+$/i.test(e);n+=i?" mobile-landed mobile":r?" tablet-landed tablet":" desktop-landed desktop";n+=(a=e.match(/(ipad|ipod|iphone|android( [\d])?|kindle|xoom)/i))?" "+(a[0].toLowerCase().indexOf('android')===0?a[0].toLowerCase().replace(' ', ' android'):a[0].toLowerCase()):"";document.getElementsByTagName("html")[0].className+=' '+n})()
